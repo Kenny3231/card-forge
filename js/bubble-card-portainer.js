@@ -59,6 +59,8 @@ function setupEventListeners() {
     inputs.forEach(input => {
         input.addEventListener('input', generateCard);
         input.addEventListener('change', generateCard);
+        input.addEventListener('input', copyCode);
+        input.addEventListener('change', copyCode);
     });
     
     // Bouton de copie
