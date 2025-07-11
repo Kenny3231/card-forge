@@ -40,6 +40,7 @@ button_action:
   tap_action:
     action: toggle`;
 
+
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -47,10 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeApp() {
     console.log('🔧 Card Forge initialisé - Générateur Bubble Card pour Portainer');
-    
+
     // Écouter les changements en temps réel
     setupEventListeners();
-    
+
+    // Génération initiale
+    generateCard();
 }
 
 function setupEventListeners() {
@@ -60,13 +63,13 @@ function setupEventListeners() {
         input.addEventListener('input', generateCard);
         input.addEventListener('change', generateCard);
     });
-    
+
     // Bouton de copie
     const copyBtn = document.getElementById('copyBtn');
     if (copyBtn) {
         copyBtn.addEventListener('click', copyCode);
     }
-    
+
     console.log('Event listeners configurés:', {
         inputs: inputs.length,
         copyBtn: !!copyBtn
@@ -82,19 +85,42 @@ function setupEventListeners() {
 // - filterIcons()
 // - popularIcons array
 
+function generateCard() {
+    const config = {
+        serviceName: getInputValue('serviceName', 'Gotify'),
+        stackNumber: getInputValue('stackNumber', '240'),
+        // Valeurs par défaut fixes
+        mainIcon: 'mdi:toggle-switch',
+        updateIcon: 'mdi:update',
+        gridColumns: '9',
+        gridRows: '1',
+        showIcon: true,
+        forceIcon: false,
+        showState: false,
+        showBackground: true,
+        stateBackground: true
+    };
+
+    // Générer le code YAML
+    const yamlCode = generateYAMLCode(config);
+    generatedCode = yamlCode;
+    updateCodeOutput(yamlCode);
+}
 
 function generateYAMLCode(config) {
     let yaml = yamlTemplate;
-    
+
     // Remplacer toutes les variables dans le template
     Object.keys(config).forEach(key => {
         const regex = new RegExp(`{{${key}}}`, 'g');
         yaml = yaml.replace(regex, config[key]);
     });
-    
+
     return yaml;
 }
 
+// Supprimer la fonction updatePreview car on utilise maintenant l'image template
+// function updatePreview() supprimée
 
 function updateCodeOutput(code) {
     const codeOutput = document.getElementById('codeOutput');
@@ -141,12 +167,12 @@ function copyCode() {
 function showNotification(message, type = 'info') {
     // Supprimer les notifications existantes
     document.querySelectorAll('.notification').forEach(n => n.remove());
-    
+
     // Créer une notification simple
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-    
+
     // Styles de la notification
     Object.assign(notification.style, {
         position: 'fixed',
@@ -162,15 +188,15 @@ function showNotification(message, type = 'info') {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
         transform: 'translateX(100%)'
     });
-    
+
     document.body.appendChild(notification);
-    
+
     // Animation d'entrée
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
         notification.style.opacity = '1';
     }, 100);
-    
+
     // Suppression automatique
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
@@ -187,7 +213,7 @@ function showNotification(message, type = 'info') {
 document.addEventListener('click', function(event) {
     const modal = document.getElementById('iconModal');
     const modalContent = document.querySelector('.icon-modal-content');
-    
+
     if (modal && modal.classList.contains('active') && !modalContent.contains(event.target)) {
         closeIconPicker();
     }
