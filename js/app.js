@@ -65,7 +65,7 @@ function generateCard() {
         stateBackground: getCheckboxValue('stateBackground')
     };
 
-    const yamlCode = generateYAMLCode({
+    const config = {
         serviceName,
         stackNumber,
         mainIcon,
@@ -73,10 +73,15 @@ function generateCard() {
         gridColumns,
         gridRows,
         ...options
-    });
+    };
 
+    // Générer le code YAML
+    const yamlCode = generateYAMLCode(config);
     generatedCode = yamlCode;
     updateCodeOutput(yamlCode);
+
+    // Mettre à jour l'aperçu
+    updatePreview(config);
 }
 
 function generateYAMLCode(config) {
@@ -128,10 +133,39 @@ function getCheckboxValue(id) {
     return element ? element.checked : false;
 }
 
+function updatePreview(config) {
+    const preview = document.getElementById('cardPreview');
+    if (!preview) return;
+
+    const icon = config.mainIcon.replace('mdi:', '') || 'toggle-switch';
+    const serviceName = config.serviceName || 'Service';
+    const stackNumber = config.stackNumber || '240';
+
+    // Créer l'aperçu visuel de la carte
+    preview.innerHTML = `
+        <div class="card-content">
+            <div class="card-title">
+                <span style="margin-right: 8px;">🔘</span>${serviceName}
+            </div>
+            <div class="card-description">
+                Stack ${stackNumber} - ${config.showState ? 'État visible' : 'État masqué'}
+            </div>
+            <div class="card-meta">
+                <span>📍 Entité: switch.stack_${stackNumber}_state</span>
+                <span>🔄 Update: button.stack_${stackNumber}_update</span>
+            </div>
+        </div>
+    `;
+    
+    // Appliquer le style selon le thème actuel
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color') || '#ff6b6b';
+    preview.style.borderLeftColor = primaryColor;
+}
+
 function updateCodeOutput(code) {
     const codeOutput = document.getElementById('codeOutput');
     if (codeOutput) {
-        codeOutput.textContent = code;
+        codeOutput.innerHTML = `<pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;">${code}</pre>`;
     }
 }
 
