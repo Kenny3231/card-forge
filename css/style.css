@@ -514,26 +514,30 @@ body {
     color: #6c757d;
 }
 
-/* Breadcrumb */
+/* Breadcrumb - Amélioration de la visibilité */
 .breadcrumb {
     margin-bottom: 1rem;
     font-size: 0.9em;
-    color: var(--text-color);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
 }
 
 .breadcrumb a {
-    color: var(--primary-color);
+    color: #4ade80;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-weight: 600;
 }
 
 .breadcrumb a:hover {
-    color: var(--secondary-color);
+    color: #22c55e;
+    text-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
 }
 
 .breadcrumb span {
     margin: 0 0.5rem;
-    color: var(--border-color);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
 }
 @media (max-width: 768px) {
     .main-content {
