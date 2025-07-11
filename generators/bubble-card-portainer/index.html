@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Card Generator for Portainer - Card Forge</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="../../">🔧 Card Forge</a>
+                <span>/</span>
+                <span>Bubble Card Portainer</span>
+            </div>
+            <h1>🐳 Bubble Card Generator for Portainer</h1>
+            <p>Créez vos cartes bubble personnalisées pour vos stacks Portainer</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>📝 Configuration Bubble Card</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="serviceName">Nom du service :</label>
+                        <input type="text" id="serviceName" value="Gotify" placeholder="Ex: Gotify, Nginx, Jellyfin...">
+                    </div>
+                    <div class="form-group">
+                        <label for="stackNumber">Numéro du stack :</label>
+                        <input type="number" id="stackNumber" value="240" placeholder="240">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mainIcon">Icône principale :</label>
+                        <div class="icon-selector">
+                            <input type="text" id="mainIcon" value="mdi:toggle-switch" placeholder="mdi:toggle-switch">
+                            <button type="button" class="icon-picker-btn" data-target="mainIcon">🎨 Choisir</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateIcon">Icône de mise à jour :</label>
+                        <div class="icon-selector">
+                            <input type="text" id="updateIcon" value="mdi:update" placeholder="mdi:update">
+                            <button type="button" class="icon-picker-btn" data-target="updateIcon">🎨 Choisir</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gridColumns">Colonnes :</label>
+                        <input type="number" id="gridColumns" value="9" min="1" max="12">
+                    </div>
+                    <div class="form-group">
+                        <label for="gridRows">Lignes :</label>
+                        <input type="number" id="gridRows" value="1" min="1" max="4">
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Options d'affichage :</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="showIcon" checked>
+                            <label for="showIcon">Afficher l'icône</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="forceIcon">
+                            <label for="forceIcon">Forcer l'icône</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="showState">
+                            <label for="showState">Afficher l'état</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="showBackground" checked>
+                            <label for="showBackground">Afficher l'arrière-plan</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="stateBackground" checked>
+                            <label for="stateBackground">Arrière-plan d'état</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h2>👀 Aperçu de la carte</h2>
+                <div class="card-preview" id="cardPreview">
+                    <div class="card-content">
+                        <p>Configurez les paramètres pour voir l'aperçu de votre carte</p>
+                    </div>
+                </div>
+
+                <h2>📋 Code YAML généré</h2>
+                <div class="code-output" id="codeOutput">
+                    <p>Le code YAML apparaîtra ici après configuration...</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="copy-btn" id="copyBtn">📋 Copier le code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sélecteur d'icônes Modal -->
+    <div class="icon-modal" id="iconModal">
+        <div class="icon-modal-content">
+            <div class="icon-modal-header">
+                <h3>🎨 Sélectionnez une icône</h3>
+                <button class="icon-modal-close" id="iconModalClose">✕</button>
+            </div>
+            <div class="icon-search">
+                <input type="text" id="iconSearch" placeholder="Rechercher une icône...">
+            </div>
+            <div class="icon-grid" id="iconGrid">
+                <!-- Les icônes seront générées dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/bubble-card-portainer.js"></script>
+</body>
+</html>
