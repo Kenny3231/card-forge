@@ -321,9 +321,6 @@ function generateCard() {
     const yamlCode = generateYAMLCode(config);
     generatedCode = yamlCode;
     updateCodeOutput(yamlCode);
-
-    // Mettre à jour l'aperçu
-    updatePreview(config);
 }
 
 function generateYAMLCode(config) {
@@ -338,81 +335,8 @@ function generateYAMLCode(config) {
     return yaml;
 }
 
-function updatePreview(config) {
-    const preview = document.getElementById('cardPreview');
-    if (!preview) return;
-
-    // Trouver l'emoji correspondant à l'icône
-    const iconData = popularIcons.find(icon => icon.mdi === config.mainIcon);
-    const iconEmoji = iconData ? iconData.icon : '🔘';
-    
-    const updateIconData = popularIcons.find(icon => icon.mdi === config.updateIcon);
-    const updateEmoji = updateIconData ? updateIconData.icon : '🔄';
-    
-    const serviceName = config.serviceName || 'Service';
-
-    // Simuler l'état ON pour avoir le style vert comme Node-Red
-    const isOn = true; // Toujours ON pour montrer le style coloré
-    
-    // Créer l'aperçu avec la structure HTML exacte basée sur le vrai code Bubble Card
-    preview.innerHTML = `
-        <div class="bubble-button-container bubble-container bubble-button-card-container is-on">
-            <div class="bubble-wrapper bubble-button-card">
-                <div class="bubble-background bubble-action bubble-action-enabled bubble-button-background" style="opacity: 1; background-color: var(--bubble-button-background-color);"></div>
-                <div class="bubble-content-container">
-                    <div class="bubble-main-icon-container bubble-icon-container icon-container" style="display: ${config.showIcon ? 'flex' : 'none'}">
-                        <div class="bubble-main-icon bubble-icon icon">${iconEmoji}</div>
-                    </div>
-                    <div class="bubble-name-container name-container">
-                        <div class="bubble-name name">${serviceName}</div>
-                        <div class="bubble-state state ${config.showState ? '' : 'hidden'}">${isOn ? 'ON' : 'OFF'}</div>
-                    </div>
-                </div>
-                <div class="bubble-sub-button-container" style="display: ${config.showBackground ? 'flex' : 'none'}">
-                    <div class="bubble-sub-button bubble-sub-button-1 background-on">
-                        <div class="bubble-sub-button-icon show-icon icon-without-state">${updateEmoji}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Appliquer les variables CSS pour reproduire le style vert Node-Red
-    const bubbleVars = {
-        '--bubble-main-background-color': '#1c1c1c',
-        '--bubble-border-radius': '25px',
-        '--bubble-accent-color': '#4ade80', // Vert moderne
-        '--bubble-button-background-color': 'rgba(74, 222, 128, 0.15)', // Fond vert translucide
-        '--bubble-icon-background-color': '#4ade80', // Icône verte
-        '--bubble-icon-color': '#ffffff', // Icône blanche sur fond vert
-        '--bubble-sub-button-background-color': 'rgba(251, 146, 60, 0.2)', // Sub-button orange
-        '--bubble-sub-button-icon-color': '#fb923c',
-        '--primary-text-color': '#ffffff',
-        '--secondary-text-color': '#94a3b8',
-        '--bubble-button-accent-color': 'rgba(74, 222, 128, 0.15)',
-        '--bubble-default-color': '#4ade80'
-    };
-    
-    // Appliquer les variables CSS au preview
-    Object.keys(bubbleVars).forEach(key => {
-        preview.style.setProperty(key, bubbleVars[key]);
-    });
-    
-    // Styles spécifiques pour reproduire exactement le rendu Node-Red
-    const container = preview.querySelector('.bubble-button-container');
-    if (container) {
-        container.style.background = 'linear-gradient(135deg, rgba(74, 222, 128, 0.2) 0%, rgba(74, 222, 128, 0.1) 100%)';
-        container.style.border = '1px solid rgba(74, 222, 128, 0.3)';
-        container.style.boxShadow = '0 2px 8px rgba(74, 222, 128, 0.2)';
-    }
-    
-    const iconContainer = preview.querySelector('.bubble-main-icon-container');
-    if (iconContainer) {
-        iconContainer.style.background = '#4ade80';
-        iconContainer.style.color = '#ffffff';
-        iconContainer.style.boxShadow = '0 2px 6px rgba(74, 222, 128, 0.4)';
-    }
-}
+// Supprimer la fonction updatePreview car on utilise maintenant l'image template
+// function updatePreview() supprimée
 
 function updateCodeOutput(code) {
     const codeOutput = document.getElementById('codeOutput');
