@@ -61,4 +61,80 @@
                         <div class="checkbox-item">
                             <input type="checkbox" id="showIcon" checked>
                             <label for="showIcon">Afficher l'icône</label>
-                        </div
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="forceIcon">
+                            <label for="forceIcon">Forcer l'icône</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="showState">
+                            <label for="showState">Afficher l'état</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="showBackground" checked>
+                            <label for="showBackground">Afficher l'arrière-plan</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="stateBackground" checked>
+                            <label for="stateBackground">Arrière-plan d'état</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="generate-btn" onclick="generateCard()">✨ Générer la carte</button>
+            </div>
+
+            <div class="preview-section">
+                <h2>👀 Aperçu de la carte</h2>
+                <div class="card-preview" id="cardPreview">
+                    <div class="card-content">
+                        <p>Remplissez le formulaire pour voir l'aperçu de votre carte</p>
+                    </div>
+                </div>
+
+                <h2>📋 Code YAML généré</h2>
+                <div class="code-output" id="codeOutput">
+                    <p>Configurez les paramètres et le code apparaîtra ici...</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="copy-btn" id="copyBtn" onclick="copyCode()">📋 Copier</button>
+                    <button class="theme-btn" id="themeBtn" onclick="toggleThemeSelector()">🎨 Changer le thème</button>
+                </div>
+
+                <div class="theme-selector" id="themeSelector">
+                    <h3>Sélectionnez un thème Home Assistant :</h3>
+                    <div class="theme-grid">
+                        <div class="theme-option selected" onclick="selectTheme('default')">
+                            <h4>Défaut</h4>
+                            <p>Thème par défaut de Home Assistant</p>
+                        </div>
+                        <div class="theme-option" onclick="selectTheme('dark')">
+                            <h4>Sombre</h4>
+                            <p>Thème sombre moderne</p>
+                        </div>
+                        <div class="theme-option" onclick="selectTheme('light')">
+                            <h4>Clair</h4>
+                            <p>Thème clair et lumineux</p>
+                        </div>
+                        <div class="theme-option" onclick="selectTheme('midnight')">
+                            <h4>Midnight</h4>
+                            <p>Thème ultra-sombre</p>
+                        </div>
+                        <div class="theme-option" onclick="selectTheme('ios')">
+                            <h4>iOS</h4>
+                            <p>Style iOS moderne</p>
+                        </div>
+                        <div class="theme-option" onclick="selectTheme('material')">
+                            <h4>Material</h4>
+                            <p>Design Material Google</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+</body>
+</html>
