@@ -1,0 +1,36 @@
+type: custom:bubble-card
+card_type: button
+entity: switch.stack_{{stackNumber}}_state
+name: {{serviceName}}
+icon: {{mainIcon}}
+show_icon: {{showIcon}}
+force_icon: {{forceIcon}}
+show_state: {{showState}}
+sub_button:
+  - entity: button.stack_{{stackNumber}}_update
+    show_background: {{showBackground}}
+    state_background: {{stateBackground}}
+    show_icon: true
+    icon: {{updateIcon}}
+    show_state: false
+    visibility:
+      - condition: state
+        entity: sensor.stack_{{stackNumber}}_state_update
+        state: outdated
+    show_name: false
+    show_attribute: false
+    tap_action:
+      action: perform-action
+      perform_action: button.press
+      target:
+        entity_id:
+          - button.stack_{{stackNumber}}_update
+card_layout: large
+grid_options:
+  columns: {{gridColumns}}
+  rows: {{gridRows}}
+tap_action:
+  action: toggle
+button_action:
+  tap_action:
+    action: toggle
