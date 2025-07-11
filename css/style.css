@@ -322,7 +322,27 @@ body {
     }
 }
 
-/* Responsive */
+/* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 1rem;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--secondary-color);
+}
+
+.breadcrumb span {
+    margin: 0 0.5rem;
+    color: var(--border-color);
+}
 @media (max-width: 768px) {
     .main-content {
         grid-template-columns: 1fr;
