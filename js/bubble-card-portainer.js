@@ -157,9 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     console.log('🔧 Card Forge initialisé - Générateur Bubble Card pour Portainer');
     
-    // Initialiser la modal d'icônes
-    initializeIconPicker();
-    
     // Écouter les changements en temps réel
     setupEventListeners();
     
@@ -168,23 +165,11 @@ function initializeApp() {
 }
 
 function setupEventListeners() {
-    // Écouter les changements sur tous les inputs
-    const inputs = document.querySelectorAll('input, select');
+    // Écouter les changements sur les deux inputs restants
+    const inputs = document.querySelectorAll('#serviceName, #stackNumber');
     inputs.forEach(input => {
         input.addEventListener('input', generateCard);
         input.addEventListener('change', generateCard);
-    });
-    
-    // Boutons de sélection d'icônes - Correction du problème
-    const iconButtons = document.querySelectorAll('.icon-picker-btn');
-    iconButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const target = this.getAttribute('data-target');
-            console.log('Bouton cliqué pour:', target); // Debug
-            openIconPicker(target);
-        });
     });
     
     // Bouton de copie
@@ -193,128 +178,35 @@ function setupEventListeners() {
         copyBtn.addEventListener('click', copyCode);
     }
     
-    // Fermeture de la modal
-    const closeBtn = document.getElementById('iconModalClose');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeIconPicker);
-    }
-    
-    // Recherche d'icônes
-    const searchInput = document.getElementById('iconSearch');
-    if (searchInput) {
-        searchInput.addEventListener('input', filterIcons);
-    }
-    
     console.log('Event listeners configurés:', {
         inputs: inputs.length,
-        iconButtons: iconButtons.length,
-        copyBtn: !!copyBtn,
-        closeBtn: !!closeBtn,
-        searchInput: !!searchInput
+        copyBtn: !!copyBtn
     });
 }
 
-function initializeIconPicker() {
-    const iconGrid = document.getElementById('iconGrid');
-    if (!iconGrid) return;
-
-    // Générer la grille d'icônes
-    iconGrid.innerHTML = popularIcons.map(icon => `
-        <div class="icon-item" data-icon="${icon.mdi}">
-            <div class="icon-preview">${icon.icon}</div>
-            <div class="icon-name">${icon.name}</div>
-        </div>
-    `).join('');
-    
-    // Ajouter les event listeners aux icônes
-    const iconItems = iconGrid.querySelectorAll('.icon-item');
-    iconItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const iconValue = this.getAttribute('data-icon');
-            selectIcon(iconValue);
-        });
-    });
-}
-
-function openIconPicker(inputId) {
-    console.log('Ouverture du sélecteur pour:', inputId); // Debug
-    currentIconInput = inputId;
-    const modal = document.getElementById('iconModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        console.log('Modal ouverte'); // Debug
-        
-        // Réinitialiser la recherche
-        const searchInput = document.getElementById('iconSearch');
-        if (searchInput) {
-            searchInput.value = '';
-            filterIcons(); // Afficher toutes les icônes
-        }
-    } else {
-        console.error('Modal introuvable'); // Debug
-    }
-}
-
-function closeIconPicker() {
-    console.log('Fermeture du sélecteur'); // Debug
-    const modal = document.getElementById('iconModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    currentIconInput = null;
-}
-
-function selectIcon(iconValue) {
-    console.log('Sélection de l\'icône:', iconValue, 'pour:', currentIconInput); // Debug
-    if (currentIconInput) {
-        const input = document.getElementById(currentIconInput);
-        if (input) {
-            input.value = iconValue;
-            // Déclencher l'événement change manuellement
-            const event = new Event('change', { bubbles: true });
-            input.dispatchEvent(event);
-            generateCard(); // Mettre à jour en temps réel
-            showNotification(`Icône ${iconValue} sélectionnée`, 'success');
-        } else {
-            console.error('Input introuvable:', currentIconInput); // Debug
-        }
-    } else {
-        console.error('Aucun input cible défini'); // Debug
-    }
-    closeIconPicker();
-}
-
-function filterIcons() {
-    const searchTerm = document.getElementById('iconSearch').value.toLowerCase();
-    const iconItems = document.querySelectorAll('.icon-item');
-    
-    iconItems.forEach(item => {
-        const iconName = item.querySelector('.icon-name').textContent.toLowerCase();
-        const iconMdi = item.getAttribute('data-icon').toLowerCase();
-        
-        if (iconName.includes(searchTerm) || iconMdi.includes(searchTerm)) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
+// Supprimer toutes les fonctions liées aux icônes
+// Les fonctions suivantes ont été supprimées :
+// - initializeIconPicker()
+// - openIconPicker()
+// - closeIconPicker()
+// - selectIcon()
+// - filterIcons()
+// - popularIcons array
 
 function generateCard() {
     const config = {
         serviceName: getInputValue('serviceName', 'Gotify'),
         stackNumber: getInputValue('stackNumber', '240'),
-        mainIcon: getInputValue('mainIcon', 'mdi:toggle-switch'),
-        updateIcon: getInputValue('updateIcon', 'mdi:update'),
-        gridColumns: getInputValue('gridColumns', '9'),
-        gridRows: getInputValue('gridRows', '1'),
-        showIcon: getCheckboxValue('showIcon'),
-        forceIcon: getCheckboxValue('forceIcon'),
-        showState: getCheckboxValue('showState'),
-        showBackground: getCheckboxValue('showBackground'),
-        stateBackground: getCheckboxValue('stateBackground')
+        // Valeurs par défaut fixes
+        mainIcon: 'mdi:toggle-switch',
+        updateIcon: 'mdi:update',
+        gridColumns: '9',
+        gridRows: '1',
+        showIcon: true,
+        forceIcon: false,
+        showState: false,
+        showBackground: true,
+        stateBackground: true
     };
 
     // Générer le code YAML
