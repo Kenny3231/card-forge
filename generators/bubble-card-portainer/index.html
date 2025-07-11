@@ -32,71 +32,20 @@
                         <input type="number" id="stackNumber" value="240" placeholder="240">
                     </div>
                 </div>
-
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="mainIcon">Icône principale :</label>
-                        <div class="icon-selector">
-                            <input type="text" id="mainIcon" value="mdi:toggle-switch" placeholder="mdi:toggle-switch">
-                            <button type="button" class="icon-picker-btn" data-target="mainIcon">🎨 Choisir</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="updateIcon">Icône de mise à jour :</label>
-                        <div class="icon-selector">
-                            <input type="text" id="updateIcon" value="mdi:update" placeholder="mdi:update">
-                            <button type="button" class="icon-picker-btn" data-target="updateIcon">🎨 Choisir</button>
-                        </div>
+                <h2>👀 Aperçu de la carte</h2>
+                    <div class="template-preview">
+                        <img src="../../js/templates/bubble-card-portainer.png" alt="Aperçu Bubble Card Portainer" class="template-image">
                     </div>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="gridColumns">Colonnes :</label>
-                        <input type="number" id="gridColumns" value="9" min="1" max="12">
-                    </div>
-                    <div class="form-group">
-                        <label for="gridRows">Lignes :</label>
-                        <input type="number" id="gridRows" value="1" min="1" max="4">
-                    </div>
-                </div>
-
-                <div class="form-group full-width">
-                    <label>Options d'affichage :</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="showIcon" checked>
-                            <label for="showIcon">Afficher l'icône</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="forceIcon">
-                            <label for="forceIcon">Forcer l'icône</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="showState">
-                            <label for="showState">Afficher l'état</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="showBackground" checked>
-                            <label for="showBackground">Afficher l'arrière-plan</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="stateBackground" checked>
-                            <label for="stateBackground">Arrière-plan d'état</label>
-                        </div>
-                    </div>
-                </div>
-
+                
                 <div class="generate-section">
                     <button type="button" class="generate-btn" onclick="generateCard()">✨ Générer la carte</button>
                 </div>
             </div>
 
             <div class="preview-section">
-                <h2>👀 Aperçu de la carte</h2>
-                <div class="template-preview">
-                    <img src="../../js/templates/bubble-card-portainer.png" alt="Aperçu Bubble Card Portainer" class="template-image">
-                </div>
+
 
                 <h2>📋 Code YAML généré</h2>
                 <div class="code-output" id="codeOutput">
