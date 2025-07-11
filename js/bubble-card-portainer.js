@@ -117,11 +117,14 @@ function setupEventListeners() {
         input.addEventListener('change', generateCard);
     });
     
-    // Boutons de sélection d'icônes
+    // Boutons de sélection d'icônes - Correction du problème
     const iconButtons = document.querySelectorAll('.icon-picker-btn');
     iconButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const target = this.getAttribute('data-target');
+            console.log('Bouton cliqué pour:', target); // Debug
             openIconPicker(target);
         });
     });
@@ -143,6 +146,14 @@ function setupEventListeners() {
     if (searchInput) {
         searchInput.addEventListener('input', filterIcons);
     }
+    
+    console.log('Event listeners configurés:', {
+        inputs: inputs.length,
+        iconButtons: iconButtons.length,
+        copyBtn: !!copyBtn,
+        closeBtn: !!closeBtn,
+        searchInput: !!searchInput
+    });
 }
 
 function initializeIconPicker() {
@@ -168,15 +179,27 @@ function initializeIconPicker() {
 }
 
 function openIconPicker(inputId) {
+    console.log('Ouverture du sélecteur pour:', inputId); // Debug
     currentIconInput = inputId;
     const modal = document.getElementById('iconModal');
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        console.log('Modal ouverte'); // Debug
+        
+        // Réinitialiser la recherche
+        const searchInput = document.getElementById('iconSearch');
+        if (searchInput) {
+            searchInput.value = '';
+            filterIcons(); // Afficher toutes les icônes
+        }
+    } else {
+        console.error('Modal introuvable'); // Debug
     }
 }
 
 function closeIconPicker() {
+    console.log('Fermeture du sélecteur'); // Debug
     const modal = document.getElementById('iconModal');
     if (modal) {
         modal.classList.remove('active');
@@ -186,13 +209,21 @@ function closeIconPicker() {
 }
 
 function selectIcon(iconValue) {
+    console.log('Sélection de l\'icône:', iconValue, 'pour:', currentIconInput); // Debug
     if (currentIconInput) {
         const input = document.getElementById(currentIconInput);
         if (input) {
             input.value = iconValue;
+            // Déclencher l'événement change manuellement
+            const event = new Event('change', { bubbles: true });
+            input.dispatchEvent(event);
             generateCard(); // Mettre à jour en temps réel
             showNotification(`Icône ${iconValue} sélectionnée`, 'success');
+        } else {
+            console.error('Input introuvable:', currentIconInput); // Debug
         }
+    } else {
+        console.error('Aucun input cible défini'); // Debug
     }
     closeIconPicker();
 }
@@ -266,43 +297,41 @@ function updatePreview(config) {
     // Simuler l'état de la carte (on/off) pour la démo
     const isOn = Math.random() > 0.5;
     
-    // Créer l'aperçu avec la structure HTML exacte des Bubble Cards
+    // Créer l'aperçu avec la structure HTML exacte basée sur le vrai code Bubble Card
     preview.innerHTML = `
-        <div class="bubble-button-card-container ${isOn ? 'bubble-button-on' : 'bubble-button-off'}">
-            <div class="bubble-icon-container ${isOn ? 'bubble-icon-on' : 'bubble-icon-off'}" style="display: ${config.showIcon ? 'flex' : 'none'}">
-                <div class="bubble-icon">${iconEmoji}</div>
-            </div>
-            <div class="bubble-name-container">
-                <div class="bubble-name">${serviceName}</div>
-                <div class="bubble-state" style="display: ${config.showState ? 'block' : 'none'}">
-                    ${isOn ? 'ON' : 'OFF'}
+        <div class="bubble-button-container bubble-container bubble-button-card-container ${isOn ? 'is-on' : 'is-off'}">
+            <div class="bubble-wrapper bubble-button-card">
+                <div class="bubble-background bubble-action bubble-action-enabled" style="opacity: 1;"></div>
+                <div class="bubble-content-container">
+                    <div class="bubble-main-icon-container bubble-icon-container icon-container" style="display: ${config.showIcon ? 'flex' : 'none'}">
+                        <div class="bubble-main-icon bubble-icon icon">${iconEmoji}</div>
+                    </div>
+                    <div class="bubble-name-container name-container">
+                        <div class="bubble-name name">${serviceName}</div>
+                        <div class="bubble-state state ${config.showState ? '' : 'hidden'}">${isOn ? 'ON' : 'OFF'}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="bubble-sub-button-container" style="display: ${config.showBackground ? 'flex' : 'none'}">
-                <button class="bubble-sub-button">
-                    <div class="bubble-sub-button-icon">${updateEmoji}</div>
-                </button>
+                <div class="bubble-sub-button-container" style="display: ${config.showBackground ? 'flex' : 'none'}">
+                    <div class="bubble-sub-button bubble-sub-button-1 background-off">
+                        <div class="bubble-sub-button-icon show-icon icon-without-state">${updateEmoji}</div>
+                    </div>
+                </div>
             </div>
         </div>
     `;
     
-    // Appliquer les variables CSS Bubble Card authentiques
+    // Appliquer les variables CSS Bubble Card authentiques selon l'état
     const bubbleVars = {
         '--bubble-main-background-color': '#1c1c1c',
         '--bubble-border-radius': '25px',
-        '--bubble-accent-color': isOn ? '#03a9f4' : '#6f6f6f',
-        '--bubble-icon-background-color': isOn ? 'rgba(3, 169, 244, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-        '--bubble-icon-color': isOn ? '#03a9f4' : '#ffffff',
-        '--bubble-name-color': '#ffffff',
-        '--bubble-state-color': '#8e8e93',
+        '--bubble-accent-color': '#03a9f4',
+        '--bubble-icon-background-color': isOn ? '#03a9f4' : 'rgba(255, 255, 255, 0.1)',
+        '--bubble-icon-color': isOn ? '#ffffff' : '#03a9f4',
+        '--bubble-button-background-color': isOn ? 'rgba(3, 169, 244, 0.1)' : 'transparent',
         '--bubble-sub-button-background-color': 'rgba(255, 152, 0, 0.2)',
         '--bubble-sub-button-icon-color': '#ff9800',
-        '--bubble-button-background-color-on': 'rgba(3, 169, 244, 0.1)',
-        '--bubble-button-background-color-off': '#1c1c1c',
         '--primary-text-color': '#ffffff',
-        '--secondary-text-color': '#8e8e93',
-        '--rgb-accent-color': '3, 169, 244',
-        '--rgb-primary-color': '255, 255, 255'
+        '--secondary-text-color': '#8e8e93'
     };
     
     // Appliquer les variables CSS au preview
