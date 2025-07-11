@@ -263,45 +263,49 @@ function updatePreview(config) {
     const serviceName = config.serviceName || 'Service';
     const stackNumber = config.stackNumber || '240';
 
-    // Simuler l'état de la carte (on/off)
-    const isOn = Math.random() > 0.5; // État aléatoire pour la démo
+    // Simuler l'état de la carte (on/off) pour la démo
+    const isOn = Math.random() > 0.5;
     
-    // Créer l'aperçu avec le vrai style Bubble Card
+    // Créer l'aperçu avec la structure HTML exacte des Bubble Cards
     preview.innerHTML = `
-        <div class="bubble-card-container ${isOn ? 'on' : 'off'}">
-            <div class="bubble-main-button">
-                <div class="bubble-icon" style="display: ${config.showIcon ? 'flex' : 'none'}">
-                    ${iconEmoji}
-                </div>
-                <div class="bubble-name">
-                    ${serviceName}
-                </div>
+        <div class="bubble-button-card-container ${isOn ? 'bubble-button-on' : 'bubble-button-off'}">
+            <div class="bubble-icon-container ${isOn ? 'bubble-icon-on' : 'bubble-icon-off'}" style="display: ${config.showIcon ? 'flex' : 'none'}">
+                <div class="bubble-icon">${iconEmoji}</div>
+            </div>
+            <div class="bubble-name-container">
+                <div class="bubble-name">${serviceName}</div>
                 <div class="bubble-state" style="display: ${config.showState ? 'block' : 'none'}">
                     ${isOn ? 'ON' : 'OFF'}
                 </div>
             </div>
-            <button class="bubble-sub-button" style="display: ${config.showBackground ? 'flex' : 'none'}">
-                <div class="bubble-sub-button-icon">
-                    ${updateEmoji}
-                </div>
-            </button>
+            <div class="bubble-sub-button-container" style="display: ${config.showBackground ? 'flex' : 'none'}">
+                <button class="bubble-sub-button">
+                    <div class="bubble-sub-button-icon">${updateEmoji}</div>
+                </button>
+            </div>
         </div>
     `;
     
-    // Appliquer les variables CSS Bubble Card
+    // Appliquer les variables CSS Bubble Card authentiques
     const bubbleVars = {
-        '--bubble-icon-background-color': isOn ? 'rgba(var(--rgb-accent-color), 0.2)' : 'rgba(255,255,255,0.1)',
-        '--bubble-icon-color': isOn ? 'var(--accent-color, #03a9f4)' : 'var(--disabled-color, #6f6f6f)',
-        '--bubble-name-color': 'var(--primary-text-color, #ffffff)',
-        '--bubble-state-color': 'var(--secondary-text-color, #8e8e93)',
-        '--bubble-sub-button-background-color': 'rgba(var(--rgb-warning-color), 0.2)',
-        '--bubble-sub-button-icon-color': 'var(--warning-color, #ff9800)',
-        '--bubble-button-background-color-on': 'rgba(var(--rgb-accent-color), 0.1)',
-        '--bubble-button-background-color-off': 'transparent',
-        '--bubble-card-border-color': 'rgba(255,255,255,0.05)'
+        '--bubble-main-background-color': '#1c1c1c',
+        '--bubble-border-radius': '25px',
+        '--bubble-accent-color': isOn ? '#03a9f4' : '#6f6f6f',
+        '--bubble-icon-background-color': isOn ? 'rgba(3, 169, 244, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+        '--bubble-icon-color': isOn ? '#03a9f4' : '#ffffff',
+        '--bubble-name-color': '#ffffff',
+        '--bubble-state-color': '#8e8e93',
+        '--bubble-sub-button-background-color': 'rgba(255, 152, 0, 0.2)',
+        '--bubble-sub-button-icon-color': '#ff9800',
+        '--bubble-button-background-color-on': 'rgba(3, 169, 244, 0.1)',
+        '--bubble-button-background-color-off': '#1c1c1c',
+        '--primary-text-color': '#ffffff',
+        '--secondary-text-color': '#8e8e93',
+        '--rgb-accent-color': '3, 169, 244',
+        '--rgb-primary-color': '255, 255, 255'
     };
     
-    // Appliquer les variables CSS
+    // Appliquer les variables CSS au preview
     Object.keys(bubbleVars).forEach(key => {
         preview.style.setProperty(key, bubbleVars[key]);
     });
