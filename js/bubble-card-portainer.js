@@ -40,55 +40,113 @@ button_action:
   tap_action:
     action: toggle`;
 
-// Icônes populaires pour Portainer et services Docker
+// Icônes populaires pour Portainer et services Docker avec vraies icônes Home Assistant
 const popularIcons = [
-    // Services populaires
+    // Services populaires Docker/Home Assistant
     { name: 'docker', icon: '🐳', mdi: 'mdi:docker' },
     { name: 'portainer', icon: '📦', mdi: 'mdi:package-variant-closed' },
     { name: 'nginx', icon: '🌐', mdi: 'mdi:web' },
-    { name: 'jellyfin', icon: '🎬', mdi: 'mdi:filmstrip' },
-    { name: 'plex', icon: '📺', mdi: 'mdi:plex' },
-    { name: 'homeassistant', icon: '🏠', mdi: 'mdi:home-assistant' },
-    { name: 'nextcloud', icon: '☁️', mdi: 'mdi:cloud' },
-    { name: 'gitea', icon: '🔧', mdi: 'mdi:git' },
+    { name: 'home-assistant', icon: '🏠', mdi: 'mdi:home-assistant' },
+    { name: 'node-red', icon: '🔴', mdi: 'mdi:resistor-nodes' },
     { name: 'grafana', icon: '📊', mdi: 'mdi:chart-line' },
-    { name: 'influxdb', icon: '📈', mdi: 'mdi:database' },
-    { name: 'postgres', icon: '🐘', mdi: 'mdi:database-outline' },
+    { name: 'jellyfin', icon: '🎬', mdi: 'mdi:multimedia' },
+    { name: 'plex', icon: '📺', mdi: 'mdi:plex' },
+    { name: 'nextcloud', icon: '☁️', mdi: 'mdi:cloud' },
+    { name: 'gitea', icon: '📂', mdi: 'mdi:git' },
+    { name: 'database', icon: '🗄️', mdi: 'mdi:database' },
+    { name: 'traefik', icon: '🔀', mdi: 'mdi:router-network' },
+    { name: 'prometheus', icon: '📈', mdi: 'mdi:chart-timeline-variant' },
+    { name: 'influxdb', icon: '💾', mdi: 'mdi:database-outline' },
+    { name: 'postgres', icon: '🐘', mdi: 'mdi:elephant' },
     { name: 'redis', icon: '🔴', mdi: 'mdi:database-marker' },
     { name: 'mongodb', icon: '🍃', mdi: 'mdi:leaf' },
-    { name: 'traefik', icon: '🔀', mdi: 'mdi:router-network' },
-    { name: 'gotify', icon: '🔔', mdi: 'mdi:bell-outline' },
-    { name: 'uptime', icon: '⏰', mdi: 'mdi:clock-outline' },
-    { name: 'bitwarden', icon: '🔐', mdi: 'mdi:shield-lock' },
-    { name: 'pihole', icon: '🛡️', mdi: 'mdi:shield-outline' },
-    { name: 'wireguard', icon: '🔒', mdi: 'mdi:vpn' },
-    { name: 'openvpn', icon: '🔑', mdi: 'mdi:key-variant' },
-    // Actions et états
+    
+    // Actions et contrôles
+    { name: 'toggle-switch', icon: '🔘', mdi: 'mdi:toggle-switch' },
+    { name: 'toggle-switch-off', icon: '⚫', mdi: 'mdi:toggle-switch-off' },
     { name: 'update', icon: '🔄', mdi: 'mdi:update' },
-    { name: 'restart', icon: '↻', mdi: 'mdi:restart' },
+    { name: 'restart', icon: '🔄', mdi: 'mdi:restart' },
+    { name: 'refresh', icon: '🔃', mdi: 'mdi:refresh' },
     { name: 'power', icon: '⚡', mdi: 'mdi:power' },
-    { name: 'toggle', icon: '🔘', mdi: 'mdi:toggle-switch' },
+    { name: 'power-on', icon: '🟢', mdi: 'mdi:power-on' },
+    { name: 'power-off', icon: '🔴', mdi: 'mdi:power-off' },
     { name: 'play', icon: '▶️', mdi: 'mdi:play' },
     { name: 'stop', icon: '⏹️', mdi: 'mdi:stop' },
     { name: 'pause', icon: '⏸️', mdi: 'mdi:pause' },
-    { name: 'refresh', icon: '🔃', mdi: 'mdi:refresh' },
+    
+    // Lumières
+    { name: 'lightbulb', icon: '💡', mdi: 'mdi:lightbulb' },
+    { name: 'lightbulb-on', icon: '🟡', mdi: 'mdi:lightbulb-on' },
+    { name: 'lightbulb-off', icon: '⚫', mdi: 'mdi:lightbulb-off' },
+    { name: 'light-switch', icon: '🔆', mdi: 'mdi:light-switch' },
+    { name: 'ceiling-light', icon: '💡', mdi: 'mdi:ceiling-light' },
+    { name: 'floor-lamp', icon: '🕯️', mdi: 'mdi:floor-lamp' },
+    { name: 'led-strip', icon: '🌈', mdi: 'mdi:led-strip-variant' },
+    { name: 'spotlight', icon: '🔦', mdi: 'mdi:spotlight-beam' },
+    
+    // Portes et accès
+    { name: 'door', icon: '🚪', mdi: 'mdi:door' },
+    { name: 'door-open', icon: '🚪', mdi: 'mdi:door-open' },
+    { name: 'door-closed', icon: '🚪', mdi: 'mdi:door-closed' },
+    { name: 'gate', icon: '🚧', mdi: 'mdi:gate' },
+    { name: 'lock', icon: '🔒', mdi: 'mdi:lock' },
+    { name: 'lock-open', icon: '🔓', mdi: 'mdi:lock-open' },
+    { name: 'key', icon: '🔑', mdi: 'mdi:key' },
+    
+    // Boutons et contrôles
+    { name: 'button', icon: '🔘', mdi: 'mdi:button-pointer' },
+    { name: 'gesture-tap', icon: '👆', mdi: 'mdi:gesture-tap' },
+    { name: 'remote', icon: '📱', mdi: 'mdi:remote' },
+    { name: 'switch', icon: '🎛️', mdi: 'mdi:dip-switch' },
+    { name: 'fader', icon: '🎚️', mdi: 'mdi:tune-vertical' },
+    
+    // Capteurs et monitoring
+    { name: 'thermometer', icon: '🌡️', mdi: 'mdi:thermometer' },
+    { name: 'humidity', icon: '💧', mdi: 'mdi:water-percent' },
+    { name: 'motion-sensor', icon: '🏃', mdi: 'mdi:motion-sensor' },
+    { name: 'eye', icon: '👁️', mdi: 'mdi:eye' },
+    { name: 'camera', icon: '📷', mdi: 'mdi:camera' },
+    { name: 'bell', icon: '🔔', mdi: 'mdi:bell' },
+    { name: 'alarm', icon: '🚨', mdi: 'mdi:alarm-light' },
+    
+    // Réseau et connectivité
+    { name: 'wifi', icon: '📶', mdi: 'mdi:wifi' },
+    { name: 'wifi-off', icon: '📵', mdi: 'mdi:wifi-off' },
+    { name: 'ethernet', icon: '🔌', mdi: 'mdi:ethernet' },
+    { name: 'router', icon: '📡', mdi: 'mdi:router-wireless' },
+    { name: 'server', icon: '🖥️', mdi: 'mdi:server' },
+    { name: 'cloud', icon: '☁️', mdi: 'mdi:cloud-outline' },
+    
+    // Système et configuration
     { name: 'settings', icon: '⚙️', mdi: 'mdi:cog' },
-    { name: 'info', icon: 'ℹ️', mdi: 'mdi:information-outline' },
+    { name: 'tools', icon: '🔧', mdi: 'mdi:tools' },
+    { name: 'wrench', icon: '🔧', mdi: 'mdi:wrench' },
+    { name: 'information', icon: 'ℹ️', mdi: 'mdi:information-outline' },
     { name: 'warning', icon: '⚠️', mdi: 'mdi:alert-outline' },
     { name: 'error', icon: '❌', mdi: 'mdi:close-circle-outline' },
     { name: 'success', icon: '✅', mdi: 'mdi:check-circle-outline' },
-    // Réseaux et connexions
-    { name: 'network', icon: '🌐', mdi: 'mdi:network' },
-    { name: 'wifi', icon: '📶', mdi: 'mdi:wifi' },
-    { name: 'ethernet', icon: '🔌', mdi: 'mdi:ethernet' },
-    { name: 'server', icon: '🖥️', mdi: 'mdi:server' },
-    { name: 'cloud', icon: '☁️', mdi: 'mdi:cloud-outline' },
-    // Monitoring
+    { name: 'help', icon: '❓', mdi: 'mdi:help-circle-outline' },
+    
+    // Hardware et composants
     { name: 'cpu', icon: '🧠', mdi: 'mdi:chip' },
     { name: 'memory', icon: '💾', mdi: 'mdi:memory' },
-    { name: 'storage', icon: '💿', mdi: 'mdi:harddisk' },
-    { name: 'temperature', icon: '🌡️', mdi: 'mdi:thermometer' },
-    { name: 'fan', icon: '🌀', mdi: 'mdi:fan' }
+    { name: 'harddisk', icon: '💿', mdi: 'mdi:harddisk' },
+    { name: 'fan', icon: '🌀', mdi: 'mdi:fan' },
+    { name: 'battery', icon: '🔋', mdi: 'mdi:battery' },
+    { name: 'battery-charging', icon: '🔌', mdi: 'mdi:battery-charging' },
+    
+    // Médias et divertissement
+    { name: 'volume-high', icon: '🔊', mdi: 'mdi:volume-high' },
+    { name: 'volume-off', icon: '🔇', mdi: 'mdi:volume-off' },
+    { name: 'speaker', icon: '🔊', mdi: 'mdi:speaker' },
+    { name: 'television', icon: '📺', mdi: 'mdi:television' },
+    { name: 'cast', icon: '📡', mdi: 'mdi:cast' },
+    
+    // Sécurité
+    { name: 'shield', icon: '🛡️', mdi: 'mdi:shield-outline' },
+    { name: 'shield-check', icon: '✅', mdi: 'mdi:shield-check' },
+    { name: 'security', icon: '🔐', mdi: 'mdi:security' },
+    { name: 'fingerprint', icon: '👆', mdi: 'mdi:fingerprint' }
 ];
 
 // Initialisation
@@ -292,16 +350,15 @@ function updatePreview(config) {
     const updateEmoji = updateIconData ? updateIconData.icon : '🔄';
     
     const serviceName = config.serviceName || 'Service';
-    const stackNumber = config.stackNumber || '240';
 
-    // Simuler l'état de la carte (on/off) pour la démo
-    const isOn = Math.random() > 0.5;
+    // Simuler l'état ON pour avoir le style vert comme Node-Red
+    const isOn = true; // Toujours ON pour montrer le style coloré
     
     // Créer l'aperçu avec la structure HTML exacte basée sur le vrai code Bubble Card
     preview.innerHTML = `
-        <div class="bubble-button-container bubble-container bubble-button-card-container ${isOn ? 'is-on' : 'is-off'}">
+        <div class="bubble-button-container bubble-container bubble-button-card-container is-on">
             <div class="bubble-wrapper bubble-button-card">
-                <div class="bubble-background bubble-action bubble-action-enabled" style="opacity: 1;"></div>
+                <div class="bubble-background bubble-action bubble-action-enabled bubble-button-background" style="opacity: 1; background-color: var(--bubble-button-background-color);"></div>
                 <div class="bubble-content-container">
                     <div class="bubble-main-icon-container bubble-icon-container icon-container" style="display: ${config.showIcon ? 'flex' : 'none'}">
                         <div class="bubble-main-icon bubble-icon icon">${iconEmoji}</div>
@@ -312,7 +369,7 @@ function updatePreview(config) {
                     </div>
                 </div>
                 <div class="bubble-sub-button-container" style="display: ${config.showBackground ? 'flex' : 'none'}">
-                    <div class="bubble-sub-button bubble-sub-button-1 background-off">
+                    <div class="bubble-sub-button bubble-sub-button-1 background-on">
                         <div class="bubble-sub-button-icon show-icon icon-without-state">${updateEmoji}</div>
                     </div>
                 </div>
@@ -320,24 +377,41 @@ function updatePreview(config) {
         </div>
     `;
     
-    // Appliquer les variables CSS Bubble Card authentiques selon l'état
+    // Appliquer les variables CSS pour reproduire le style vert Node-Red
     const bubbleVars = {
         '--bubble-main-background-color': '#1c1c1c',
         '--bubble-border-radius': '25px',
-        '--bubble-accent-color': '#03a9f4',
-        '--bubble-icon-background-color': isOn ? '#03a9f4' : 'rgba(255, 255, 255, 0.1)',
-        '--bubble-icon-color': isOn ? '#ffffff' : '#03a9f4',
-        '--bubble-button-background-color': isOn ? 'rgba(3, 169, 244, 0.1)' : 'transparent',
-        '--bubble-sub-button-background-color': 'rgba(255, 152, 0, 0.2)',
-        '--bubble-sub-button-icon-color': '#ff9800',
+        '--bubble-accent-color': '#4ade80', // Vert moderne
+        '--bubble-button-background-color': 'rgba(74, 222, 128, 0.15)', // Fond vert translucide
+        '--bubble-icon-background-color': '#4ade80', // Icône verte
+        '--bubble-icon-color': '#ffffff', // Icône blanche sur fond vert
+        '--bubble-sub-button-background-color': 'rgba(251, 146, 60, 0.2)', // Sub-button orange
+        '--bubble-sub-button-icon-color': '#fb923c',
         '--primary-text-color': '#ffffff',
-        '--secondary-text-color': '#8e8e93'
+        '--secondary-text-color': '#94a3b8',
+        '--bubble-button-accent-color': 'rgba(74, 222, 128, 0.15)',
+        '--bubble-default-color': '#4ade80'
     };
     
     // Appliquer les variables CSS au preview
     Object.keys(bubbleVars).forEach(key => {
         preview.style.setProperty(key, bubbleVars[key]);
     });
+    
+    // Styles spécifiques pour reproduire exactement le rendu Node-Red
+    const container = preview.querySelector('.bubble-button-container');
+    if (container) {
+        container.style.background = 'linear-gradient(135deg, rgba(74, 222, 128, 0.2) 0%, rgba(74, 222, 128, 0.1) 100%)';
+        container.style.border = '1px solid rgba(74, 222, 128, 0.3)';
+        container.style.boxShadow = '0 2px 8px rgba(74, 222, 128, 0.2)';
+    }
+    
+    const iconContainer = preview.querySelector('.bubble-main-icon-container');
+    if (iconContainer) {
+        iconContainer.style.background = '#4ade80';
+        iconContainer.style.color = '#ffffff';
+        iconContainer.style.boxShadow = '0 2px 6px rgba(74, 222, 128, 0.4)';
+    }
 }
 
 function updateCodeOutput(code) {
