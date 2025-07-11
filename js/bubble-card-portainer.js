@@ -257,29 +257,54 @@ function updatePreview(config) {
     const iconData = popularIcons.find(icon => icon.mdi === config.mainIcon);
     const iconEmoji = iconData ? iconData.icon : '🔘';
     
+    const updateIconData = popularIcons.find(icon => icon.mdi === config.updateIcon);
+    const updateEmoji = updateIconData ? updateIconData.icon : '🔄';
+    
     const serviceName = config.serviceName || 'Service';
     const stackNumber = config.stackNumber || '240';
 
-    // Créer l'aperçu visuel de la carte
+    // Simuler l'état de la carte (on/off)
+    const isOn = Math.random() > 0.5; // État aléatoire pour la démo
+    
+    // Créer l'aperçu avec le vrai style Bubble Card
     preview.innerHTML = `
-        <div class="card-content">
-            <div class="card-title">
-                <span style="margin-right: 8px; font-size: 1.2em;">${iconEmoji}</span>${serviceName}
+        <div class="bubble-card-container ${isOn ? 'on' : 'off'}">
+            <div class="bubble-main-button">
+                <div class="bubble-icon" style="display: ${config.showIcon ? 'flex' : 'none'}">
+                    ${iconEmoji}
+                </div>
+                <div class="bubble-name">
+                    ${serviceName}
+                </div>
+                <div class="bubble-state" style="display: ${config.showState ? 'block' : 'none'}">
+                    ${isOn ? 'ON' : 'OFF'}
+                </div>
             </div>
-            <div class="card-description">
-                Stack Portainer ${stackNumber} • ${config.showState ? 'État affiché' : 'État masqué'}
-                <br>
-                <small style="opacity: 0.7;">
-                    ${config.showIcon ? '🎯 Icône visible' : '⚪ Icône masquée'} • 
-                    ${config.showBackground ? '🎨 Arrière-plan actif' : '⬜ Arrière-plan simple'}
-                </small>
-            </div>
-            <div class="card-meta">
-                <span>📍 switch.stack_${stackNumber}_state</span>
-                <span>🔄 button.stack_${stackNumber}_update</span>
-            </div>
+            <button class="bubble-sub-button" style="display: ${config.showBackground ? 'flex' : 'none'}">
+                <div class="bubble-sub-button-icon">
+                    ${updateEmoji}
+                </div>
+            </button>
         </div>
     `;
+    
+    // Appliquer les variables CSS Bubble Card
+    const bubbleVars = {
+        '--bubble-icon-background-color': isOn ? 'rgba(var(--rgb-accent-color), 0.2)' : 'rgba(255,255,255,0.1)',
+        '--bubble-icon-color': isOn ? 'var(--accent-color, #03a9f4)' : 'var(--disabled-color, #6f6f6f)',
+        '--bubble-name-color': 'var(--primary-text-color, #ffffff)',
+        '--bubble-state-color': 'var(--secondary-text-color, #8e8e93)',
+        '--bubble-sub-button-background-color': 'rgba(var(--rgb-warning-color), 0.2)',
+        '--bubble-sub-button-icon-color': 'var(--warning-color, #ff9800)',
+        '--bubble-button-background-color-on': 'rgba(var(--rgb-accent-color), 0.1)',
+        '--bubble-button-background-color-off': 'transparent',
+        '--bubble-card-border-color': 'rgba(255,255,255,0.05)'
+    };
+    
+    // Appliquer les variables CSS
+    Object.keys(bubbleVars).forEach(key => {
+        preview.style.setProperty(key, bubbleVars[key]);
+    });
 }
 
 function updateCodeOutput(code) {
