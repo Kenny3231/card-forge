@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bubble Card Generator - Card Forge</title>
+    <title>Bubble Card Generator for Portainer - Card Forge</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
@@ -12,10 +12,10 @@
             <div class="breadcrumb">
                 <a href="../../">🔧 Card Forge</a>
                 <span>/</span>
-                <span>Bubble Card Generator</span>
+                <span>Bubble Card Generator for Portainer</span>
             </div>
-            <h1>🔥 Bubble Card Generator</h1>
-            <p>Créez vos cartes bubble personnalisées pour Home Assistant</p>
+            <h1>🐳 Bubble Card Generator for Portainer</h1>
+            <p>Créez vos cartes bubble personnalisées pour vos stacks Portainer</p>
         </div>
 
         <div class="main-content">
@@ -25,7 +25,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="serviceName">Nom du service :</label>
-                        <input type="text" id="serviceName" value="Gotify" placeholder="Ex: Gotify">
+                        <input type="text" id="serviceName" value="Gotify" placeholder="Ex: Gotify, Nginx, Jellyfin...">
                     </div>
                     <div class="form-group">
                         <label for="stackNumber">Numéro du stack :</label>
@@ -36,11 +36,17 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="mainIcon">Icône principale :</label>
-                        <input type="text" id="mainIcon" value="mdi:toggle-switch" placeholder="mdi:toggle-switch">
+                        <div class="icon-selector">
+                            <input type="text" id="mainIcon" value="mdi:toggle-switch" placeholder="mdi:toggle-switch" readonly>
+                            <button type="button" class="icon-picker-btn" onclick="openIconPicker('mainIcon')">🎨 Choisir</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="updateIcon">Icône de mise à jour :</label>
-                        <input type="text" id="updateIcon" value="mdi:update" placeholder="mdi:update">
+                        <div class="icon-selector">
+                            <input type="text" id="updateIcon" value="mdi:update" placeholder="mdi:update" readonly>
+                            <button type="button" class="icon-picker-btn" onclick="openIconPicker('updateIcon')">🎨 Choisir</button>
+                        </div>
                     </div>
                 </div>
 
@@ -88,17 +94,17 @@
                 <h2>👀 Aperçu de la carte</h2>
                 <div class="card-preview" id="cardPreview">
                     <div class="card-content">
-                        <p>Remplissez le formulaire pour voir l'aperçu de votre carte</p>
+                        <p>Configurez les paramètres pour voir l'aperçu de votre carte</p>
                     </div>
                 </div>
 
                 <h2>📋 Code YAML généré</h2>
                 <div class="code-output" id="codeOutput">
-                    <p>Configurez les paramètres et le code apparaîtra ici...</p>
+                    <p>Le code YAML apparaîtra ici après configuration...</p>
                 </div>
                 
                 <div class="action-buttons">
-                    <button class="copy-btn" id="copyBtn" onclick="copyCode()">📋 Copier</button>
+                    <button class="copy-btn" id="copyBtn" onclick="copyCode()">📋 Copier le code</button>
                     <button class="theme-btn" id="themeBtn" onclick="toggleThemeSelector()">🎨 Changer le thème</button>
                 </div>
 
@@ -131,6 +137,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sélecteur d'icônes Modal -->
+    <div class="icon-modal" id="iconModal">
+        <div class="icon-modal-content">
+            <div class="icon-modal-header">
+                <h3>🎨 Sélectionnez une icône</h3>
+                <button class="icon-modal-close" onclick="closeIconPicker()">✕</button>
+            </div>
+            <div class="icon-search">
+                <input type="text" id="iconSearch" placeholder="Rechercher une icône..." onkeyup="filterIcons()">
+            </div>
+            <div class="icon-grid" id="iconGrid">
+                <!-- Les icônes seront générées dynamiquement -->
             </div>
         </div>
     </div>
